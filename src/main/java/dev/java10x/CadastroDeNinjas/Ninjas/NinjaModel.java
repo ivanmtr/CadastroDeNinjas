@@ -17,7 +17,7 @@ public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String nome;
 
@@ -27,6 +27,6 @@ public class NinjaModel {
     private int idade;
 
     @ManyToOne
-    @JoinColumn(name = "missoes_id") //Foreing key
+    @JoinColumn(name = "missoes_id") // Coluna que vai gerar a Foreing key
     private MissoesModel missoes;
 }
