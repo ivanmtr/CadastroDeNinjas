@@ -33,6 +33,11 @@ build/
 ### VS Code ###
 .vscode/
 data/
+# Logs e arquivos gerados pela JVM e IDEs
+*.log
+target/
+.mvn/
+.idea/
 
 
 .env
