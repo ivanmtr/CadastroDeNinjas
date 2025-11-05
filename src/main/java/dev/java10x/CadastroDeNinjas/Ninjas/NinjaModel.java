@@ -28,10 +28,15 @@ public class NinjaModel {
     @Column(name = "img_url")
     private String img_url;
 
+    @Column(name = "rank")
+    private String rank;
+
     @Column(name = "idade")
     private int idade;
 
     @ManyToOne
     @JoinColumn(name = "missoes_id") // coluna que armazenará a Chave Estrangeira
     private MissoesModel missoes;
+
+
 }
