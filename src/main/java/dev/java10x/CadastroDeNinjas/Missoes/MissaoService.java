@@ -9,15 +9,18 @@ import java.util.Optional;
 @Service
 public class MissoesService {
 
-    private MissoesRepository missoesRepository;
+    private final MissoesRepository missoesRepository;
+    public final MissoesMapper missoesMapper;
 
-    public MissoesService(MissoesRepository missoesRepository) {
+    public MissoesService(MissoesRepository missoesRepository, MissoesMapper missoesMapper) {
         this.missoesRepository = missoesRepository;
+        this.missoesMapper = missoesMapper;
     }
 
     // Criar nova Missao
-    public MissoesModel criarMissao(MissoesModel missoes) {
-        return missoesRepository.save(missoes);
+    public MissoesDTO criarMissao(MissoesDTO missaoDTO) {
+        MissoesModel missao = missoesMapper.map(missaoDTO);
+        return missoesMapper.map(missao);
     }
 
     // Listar todas as Missoes

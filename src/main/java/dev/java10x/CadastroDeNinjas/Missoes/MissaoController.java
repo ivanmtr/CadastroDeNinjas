@@ -8,15 +8,15 @@ import java.util.List;
 @RequestMapping("missoes")
 public class MissoesController {
 
-    private MissoesService missoesService;
+    private final MissoesService missoesService;
 
-    public MissoesController(MissoesService missoesService) {
+    public MissoesController(MissoesService missoesService, MissoesMapper missoesMapper) {
         this.missoesService = missoesService;
     }
 
     // Criar Missao
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missoes) {
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missoes) {
         return missoesService.criarMissao(missoes);
     }
 
