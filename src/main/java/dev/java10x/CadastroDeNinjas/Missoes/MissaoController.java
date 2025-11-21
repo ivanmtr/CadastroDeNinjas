@@ -6,41 +6,41 @@ import java.util.List;
 
 @RestController
 @RequestMapping("missoes")
-public class MissoesController {
+public class MissaoController {
 
-    private final MissoesService missoesService;
+    private final MissaoService missaoService;
 
-    public MissoesController(MissoesService missoesService, MissoesMapper missoesMapper) {
-        this.missoesService = missoesService;
+    public MissaoController(MissaoService missaoService, MissaoMapper missaoMapper) {
+        this.missaoService = missaoService;
     }
 
     // Criar Missao
     @PostMapping("/criar")
-    public MissoesDTO criarMissao(@RequestBody MissoesDTO missoes) {
-        return missoesService.criarMissao(missoes);
+    public MissaoDTO criarMissao(@RequestBody MissaoDTO missoes) {
+        return missaoService.criarMissao(missoes);
     }
 
     // Listar Missoes
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissoes(){
-        return missoesService.listarMissoes();
+    public List<MissaoModel> listarMissoes(){
+        return missaoService.listarMissoes();
     }
 
     // Listar Missoes por ID
     @GetMapping("/listar/{id}")
-    public MissoesModel listarMissoes(@PathVariable Long id) {
-        return missoesService.listarMissoesPorId(id);
+    public MissaoModel listarMissoes(@PathVariable Long id) {
+        return missaoService.listarMissoesPorId(id);
     }
 
     // Deletar Missao
     @DeleteMapping("/deletar/{id}")
     public void deletarMissao(@PathVariable Long id) {
-        missoesService.deletarMissao(id);
+        missaoService.deletarMissao(id);
     }
 
     // Atualizar Missao
     @PutMapping("/atualizar/{id}")
-    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel missaoAtualizada) {
-        return missoesService.atualizarMissao(id, missaoAtualizada);
+    public MissaoModel alterarMissao(@PathVariable Long id, @RequestBody MissaoModel missaoAtualizada) {
+        return missaoService.atualizarMissao(id, missaoAtualizada);
     }
 }

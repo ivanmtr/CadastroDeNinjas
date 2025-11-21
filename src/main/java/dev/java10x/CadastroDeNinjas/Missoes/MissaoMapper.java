@@ -3,25 +3,26 @@ package dev.java10x.CadastroDeNinjas.Missoes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MissoesMapper {
+public class MissaoMapper {
 
-    public MissoesModel map(MissoesDTO missoesDTO) {
-        MissoesModel missoesModel = new MissoesModel();
-        missoesModel.setId(missoesDTO.getId());
-        missoesModel.setNome(missoesDTO.getNome());
-        missoesModel.setDificuldade(missoesDTO.getDificuldade());
-        missoesModel.setNinja(missoesDTO.getNinja());
+    public MissaoModel map(MissaoDTO missaoDTO) {
 
-        return missoesModel;
+        MissaoModel missaoModel = new MissaoModel();
+        missaoModel.setId(missaoDTO.getId());
+        missaoModel.setNome(missaoDTO.getNome());
+        missaoModel.setDificuldade(missaoDTO.getDificuldade());
+        missaoModel.setNinja(missaoDTO.getNinja());
+
+        return missaoModel;
     }
 
-    public MissoesDTO map(MissoesModel missoesModel) {
-        MissoesDTO missoesDTO = new MissoesDTO();
-        missoesDTO.setId(missoesModel.getId());
-        missoesDTO.setNome(missoesModel.getNome());
-        missoesDTO.setDificuldade(missoesModel.getDificuldade());
-        missoesDTO.setNinja(missoesModel.getNinja());
+    public MissaoDTO map(MissaoModel missaoModel) {
+        MissaoDTO missaoDTO = new MissaoDTO();
+        missaoDTO.setId(missaoModel.getId());
+        missaoDTO.setNome(missaoModel.getNome());
+        missaoDTO.setDificuldade(missaoModel.getDificuldade());
+        missaoDTO.setNinja(missaoModel.getNinja());
 
-        return missoesDTO;
+        return missaoDTO;
     }
 }

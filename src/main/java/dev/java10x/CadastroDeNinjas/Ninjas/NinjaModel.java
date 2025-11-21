@@ -1,12 +1,10 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
-import dev.java10x.CadastroDeNinjas.Missoes.MissoesModel;
+import dev.java10x.CadastroDeNinjas.Missoes.MissaoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -36,7 +34,7 @@ public class NinjaModel {
 
     @ManyToOne
     @JoinColumn(name = "missoes_id") // coluna que armazenará a Chave Estrangeira
-    private MissoesModel missoes;
+    private MissaoModel missoes;
 
 
 }
