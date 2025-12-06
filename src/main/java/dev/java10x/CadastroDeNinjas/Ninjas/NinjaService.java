@@ -2,7 +2,6 @@ package dev.java10x.CadastroDeNinjas.Ninjas;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,10 +51,10 @@ public class NinjaService {
             ninjaAtualizado.setId(id);
             NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
             return ninjaMapper.map(ninjaSalvo);
-        } // Procurar saber logica e passo a passo do metodo
-          // Parei a aula no minuto: 19:45
+        }
         return null;
-    }
 
+    }
+// Procurar saber logica e passo a passo do metodo
 
 }

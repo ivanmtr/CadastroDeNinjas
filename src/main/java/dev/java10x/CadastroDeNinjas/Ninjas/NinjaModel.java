@@ -33,7 +33,7 @@ public class NinjaModel {
     private int idade;
 
     @ManyToOne
-    @JoinColumn(name = "missoes_id") // coluna que armazenará a Chave Estrangeira
+    @JoinColumn(name = "missoes_id")
     private MissaoModel missoes;
 
 
