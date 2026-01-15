@@ -16,7 +16,7 @@ public class MissaoMapper {
         return missaoModel;
     }
 
-    public MissaoDTO map(MissaoModel missaoModel) {
+    public static MissaoDTO map(MissaoModel missaoModel) {
         MissaoDTO missaoDTO = new MissaoDTO();
         missaoDTO.setId(missaoModel.getId());
         missaoDTO.setNome(missaoModel.getNome());

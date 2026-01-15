@@ -28,14 +28,14 @@ public class MissaoService {
     public List<MissaoDTO> listarMissoes() {
         List<MissaoModel> missoes = missoesRepository.findAll();
         return missoes.stream()
-                .map(missaoMapper::map)
+                .map(MissaoMapper::map)
                 .collect(Collectors.toList());
     }
 
     // Listar Missoes por ID
     public MissaoDTO listarMissoesPorId(Long id) {
         Optional<MissaoModel> missoesPorId = missoesRepository.findById(id);
-        return missoesPorId.map(missaoMapper::map)
+        return missoesPorId.map(MissaoMapper::map)
                 .orElse(null);
     }
 
