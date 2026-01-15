@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${ninja.id == null ? 'Criar Ninja' : 'Editar Ninja'}"></title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}">
+</head>
+<body>
+
+<div class="container form-container">
+
+    <h1 th:text="${ninja.id == null ? 'Criar Ninja' : 'Editar Ninja'}"></h1>
+
+    <form th:action="${ninja.id == null}
+            ? @{/ninjas/ui/criar}
+            : @{/ninjas/ui/editar/{id}(id=${ninja.id})}"
+          method="post"
+          class="ninja-form">
+
+        <input type="hidden" name="id" th:value="${ninja.id}">
+
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" name="nome" th:value="${ninja.nome}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Idade</label>
+            <input type="number" name="idade" th:value="${ninja.idade}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" th:value="${ninja.email}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rank</label>
+            <select name="rank" required>
+                <option value="">Selecione um rank</option>
+                <option th:each="rank : ${ranks}"
+                        th:value="${rank}"
+                        th:text="${rank}"
+                        th:selected="${rank == ninja.rank}">
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>URL da Imagem</label>
+            <input type="url" name="imgUrl" th:value="${ninja.imgUrl}">
+        </div>
+
+        <div class="form-group">
+            <label>Missão</label>
+            <select name="missaoId">
+                <option value="">Sem missão</option>
+                <option th:each="missao : ${missoes}"
+                        th:value="${missao.id}"
+                        th:text="${missao.nome + ' (' + missao.dificuldade + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <a th:href="@{/ninjas/ui/listar}" class="btn btn-view">
+                Cancelar
+            </a>
+
+            <button type="submit" class="btn btn-create">
+                Salvar
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

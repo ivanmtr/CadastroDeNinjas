@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela de ninjas</title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Lista de ninjas</h1>
+        <a class="btn btn-create" th:href="@{/ninjas/ui/novo}">
+            + Novo Ninja
+        </a>
+    </div>
+
+    <table class="ninja-table">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Email</th>
+            <th>Rank</th>
+            <th>Missão</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ninja : ${ninjas}">
+            <td th:text="${ninja.id}"></td>
+            <td>
+                <img class="ninja-img" th:src="${ninja.imgUrl}">
+            </td>
+            <td th:text="${ninja.nome}"></td>
+            <td th:text="${ninja.idade}"></td>
+            <td th:text="${ninja.email}"></td>
+            <td>
+                <span class="rank-badge" th:text="${ninja.rank}"></span>
+            </td>
+            <td>
+                <span th:if="${ninja.missoes}">
+                    <strong th:text="${ninja.missoes.nome}"></strong>
+                    <small>(<span th:text="${ninja.missoes.dificuldade}"></span>)</small>
+                </span>
+                <span th:if="${ninja.missoes == null}" class="no-mission">
+                    Sem Missões
+                </span>
+            </td>
+            <td class="actions">
+                <a class="btn btn-view"
+                   th:href="@{/ninjas/ui/{id}(id=${ninja.id})}">
+                    Ver detalhes
+                </a>
+
+                <a class="btn btn-edit"
+                   th:href="@{/ninjas/ui/editar/{id}(id=${ninja.id})}">
+                    Alterar
+                </a>
+
+                <a class="btn btn-delete"
+                   th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">
+                    Deletar
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

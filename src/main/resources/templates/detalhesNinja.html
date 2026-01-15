@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Ninja</title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}">
+</head>
+<body>
+
+<div class="container details-container">
+
+    <div class="details-card split-layout">
+
+        <!-- Coluna da imagem -->
+        <div class="details-image">
+            <img th:src="${ninja.imgUrl}" alt="Imagem do Ninja">
+        </div>
+
+        <!-- Coluna das informações -->
+        <div class="details-content">
+
+            <div class="details-info">
+                <p><strong>ID:</strong> <span th:text="${ninja.id}"></span></p>
+                <p><strong>Nome:</strong> <span th:text="${ninja.nome}"></span></p>
+                <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
+                <p><strong>Rank:</strong> <span th:text="${ninja.rank}"></span></p>
+
+                <p>
+                    <strong>Missão:</strong>
+                    <span th:if="${ninja.missoes}">
+                        <span th:text="${ninja.missoes.nome}"></span>
+                        (<span th:text="${ninja.missoes.dificuldade}"></span>)
+                    </span>
+                    <span th:if="${ninja.missoes == null}">
+                        Sem missão
+                    </span>
+                </p>
+            </div>
+
+            <div class="details-actions">
+                <a th:href="@{/ninjas/ui/listar}" class="btn btn-view">Voltar</a>
+                <a th:href="@{/ninjas/ui/editar/{id}(id=${ninja.id})}" class="btn btn-edit">Editar</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
