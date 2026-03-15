@@ -14,6 +14,7 @@
     <form th:action="${ninja.id == null}
             ? @{/ninjas/ui/criar}
             : @{/ninjas/ui/editar/{id}(id=${ninja.id})}"
+          th:object="${ninja}"
           method="post"
           class="ninja-form">
 
@@ -36,12 +37,11 @@
 
         <div class="form-group">
             <label>Rank</label>
-            <select name="rank" required>
+            <select th:field="*{ranking}" required>
                 <option value="">Selecione um rank</option>
                 <option th:each="rank : ${ranks}"
                         th:value="${rank}"
-                        th:text="${rank}"
-                        th:selected="${rank == ninja.rank}">
+                        th:text="${rank}">
                 </option>
             </select>
         </div>
@@ -53,7 +53,7 @@
 
         <div class="form-group">
             <label>Missão</label>
-            <select name="missaoId">
+            <select th:field="*{missaoId}">
                 <option value="">Sem missão</option>
                 <option th:each="missao : ${missoes}"
                         th:value="${missao.id}"

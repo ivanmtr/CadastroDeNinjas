@@ -1,9 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
-import dev.java10x.CadastroDeNinjas.Missoes.MissaoDTO;
-import dev.java10x.CadastroDeNinjas.Missoes.MissaoModel;
 import dev.java10x.CadastroDeNinjas.Missoes.MissaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/ninjas/ui")
 public class NinjaControllerUI {
 
     private final NinjaService ninjaService;
-    @Autowired
-    private MissaoService missaoService;
+    private final MissaoService missaoService;
 
-    public NinjaControllerUI(NinjaService ninjaService) {
+    public NinjaControllerUI(NinjaService ninjaService, MissaoService missaoService) {
         this.ninjaService = ninjaService;
+        this.missaoService = missaoService;
     }
 
     @GetMapping("/listar")
@@ -41,8 +36,8 @@ public class NinjaControllerUI {
     @GetMapping("/novo")
     public String novoNinja(Model model) {
         model.addAttribute("ninja", new NinjaDTO());
-        model.addAttribute("missoes", ninjaService.listarMissoes());
-        model.addAttribute("ranks", ninjaService.listarRanks());
+        model.addAttribute("missoes", missaoService.listarMissoes());
+        model.addAttribute("ranks", Rank.values());
         return "formNinja";
     }
 
@@ -55,9 +50,9 @@ public class NinjaControllerUI {
     @GetMapping("/editar/{id}")
     public String editarNinja(@PathVariable Long id, Model model) {
         model.addAttribute("ninja", ninjaService.listarNinjasPorId(id));
-        List<MissaoDTO> listaDeMissoes = missaoService.listarMissoes();
-        model.addAttribute("missoes", listaDeMissoes);
-        model.addAttribute("ranks", RankNinja.values());
+        //List<MissaoDTO> listaDeMissoes = missaoService.listarMissoes();
+        model.addAttribute("missoes", missaoService.listarMissoes());
+        model.addAttribute("ranks", Rank.values());
         return "formNinja";
     }
 

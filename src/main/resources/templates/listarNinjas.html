@@ -34,20 +34,26 @@
         <tr th:each="ninja : ${ninjas}">
             <td th:text="${ninja.id}"></td>
             <td>
-                <img class="ninja-img" th:src="${ninja.imgUrl}">
+                <img class="ninja-img" th:src="${ninja.imgUrl}" alt="Imagem do ninja">
             </td>
             <td th:text="${ninja.nome}"></td>
             <td th:text="${ninja.idade}"></td>
             <td th:text="${ninja.email}"></td>
+
             <td>
-                <span class="rank-badge" th:text="${ninja.rank}"></span>
+                <span class="rank-badge"
+                      th:text="${ninja.ranking != null ? ninja.ranking : 'Sem Rank'}">
+                </span>
             </td>
             <td>
-                <span th:if="${ninja.missoes}">
-                    <strong th:text="${ninja.missoes.nome}"></strong>
-                    <small>(<span th:text="${ninja.missoes.dificuldade}"></span>)</small>
+                <span th:if="${ninja.missaoNome != null}">
+                    <strong th:text="${ninja.missaoNome}"></strong>
+                    <small>
+                        (<span th:text="${ninja.missaoDificuldade}"></span>)
+                    </small>
                 </span>
-                <span th:if="${ninja.missoes == null}" class="no-mission">
+
+                <span th:unless="${ninja.missaoNome != null}" class="no-mission">
                     Sem Missões
                 </span>
             </td>

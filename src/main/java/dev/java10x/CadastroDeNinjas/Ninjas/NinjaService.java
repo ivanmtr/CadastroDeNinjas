@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -24,7 +23,6 @@ public class NinjaService {
     }
 
 
-
     public List<NinjaDTO> listarNinjas() {
         return ninjaRepository.findAll()
                 .stream()
@@ -36,19 +34,6 @@ public class NinjaService {
         return ninjaRepository.findById(id)
                 .map(ninjaMapper::map)
                 .orElse(null);
-    }
-
-    public List<MissaoDTO> listarMissoes() {
-        return missaoRepository.findAll()
-                .stream()
-                .map(MissaoMapper::map)
-                .toList();
-    }
-
-    public List<String> listarRanks() {
-        return Arrays.stream(RankNinja.values())
-                .map(Enum::name)
-                .toList();
     }
 
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
@@ -78,7 +63,7 @@ public class NinjaService {
         ninjaExistente.setNome(ninjaDTO.getNome());
         ninjaExistente.setIdade(ninjaDTO.getIdade());
         ninjaExistente.setEmail(ninjaDTO.getEmail());
-        ninjaExistente.setRank(ninjaDTO.getRank());
+        ninjaExistente.setRanking(ninjaDTO.getRanking());
         ninjaExistente.setImgUrl(ninjaDTO.getImgUrl());
 
         if (ninjaDTO.getMissaoId() != null) {

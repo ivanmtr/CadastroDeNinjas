@@ -29,8 +29,9 @@ public class NinjaModel {
     @Column (name = "imgUrl")
     private String imgUrl;
 
-    @Column (name = "rank")
-    private String rank;
+    @Enumerated(EnumType.STRING)
+    @Column (name = "ranking")
+    private Rank ranking;
 
     @Column (name = "idade")
     private int idade;

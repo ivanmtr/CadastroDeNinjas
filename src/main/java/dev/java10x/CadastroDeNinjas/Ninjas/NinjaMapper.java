@@ -1,37 +1,67 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import dev.java10x.CadastroDeNinjas.Missoes.MissaoRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NinjaMapper {
 
-    public NinjaModel map(NinjaDTO ninjaDTO) {
+    private final MissaoRepository missaoRepository;
 
-        NinjaModel ninjaModel = new NinjaModel();
-        ninjaModel.setId(ninjaDTO.getId());
-        ninjaModel.setNome(ninjaDTO.getNome());
-        ninjaModel.setEmail(ninjaDTO.getEmail());
-        ninjaModel.setIdade(ninjaDTO.getIdade());
-        ninjaModel.setImgUrl(ninjaDTO.getImgUrl());
-        ninjaModel.setRank(ninjaDTO.getRank());
-        ninjaModel.setMissoes(ninjaDTO.getMissoes());
-
-        return ninjaModel;
+    public NinjaMapper(MissaoRepository missaoRepository) {
+        this.missaoRepository = missaoRepository;
     }
 
-    public NinjaDTO map(NinjaModel ninjaModel) {
+    // DTO -> Model
+    public NinjaModel map(NinjaDTO dto) {
+        if (dto == null) return null;
 
-        NinjaDTO ninjaDTO = new NinjaDTO();
-        ninjaDTO.setId(ninjaModel.getId());
-        ninjaDTO.setNome(ninjaModel.getNome());
-        ninjaDTO.setEmail(ninjaModel.getEmail());
-        ninjaDTO.setImgUrl(ninjaModel.getImgUrl());
-        ninjaDTO.setIdade(ninjaModel.getIdade());
-        ninjaDTO.setMissoes(ninjaModel.getMissoes());
-        ninjaDTO.setRank(ninjaModel.getRank());
+        NinjaModel model = new NinjaModel();
 
-        return ninjaDTO;
+        model.setId(dto.getId());
+        model.setNome(dto.getNome());
+        model.setEmail(dto.getEmail());
+        model.setIdade(dto.getIdade());
+        model.setImgUrl(dto.getImgUrl());
+
+        // Ranking (Enum)
+        if (dto.getRanking() != null) {
+            model.setRanking(dto.getRanking());
+        }
+
+        // Missão via ID (controlado)
+        if (dto.getMissaoId() != null) {
+            missaoRepository.findById(dto.getMissaoId())
+                    .ifPresent(model::setMissoes);
+        } else {
+            model.setMissoes(null);
+        }
+
+        return model;
     }
 
+    // Model -> DTO
+    public NinjaDTO map(NinjaModel model) {
+        if (model == null) return null;
 
+        NinjaDTO dto = new NinjaDTO();
+
+        dto.setId(model.getId());
+        dto.setNome(model.getNome());
+        dto.setEmail(model.getEmail());
+        dto.setIdade(model.getIdade());
+        dto.setImgUrl(model.getImgUrl());
+
+        // Ranking (Enum)
+        dto.setRanking(model.getRanking());
+
+        // Missão
+        if (model.getMissoes() != null) {
+            dto.setMissaoId(model.getMissoes().getId());
+            dto.setMissaoNome(model.getMissoes().getNome());
+            dto.setMissaoDificuldade(model.getMissoes().getDificuldade());
+        }
+
+        return dto;
+    }
 }

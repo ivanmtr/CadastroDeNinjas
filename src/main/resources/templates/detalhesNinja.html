@@ -24,15 +24,15 @@
                 <p><strong>Nome:</strong> <span th:text="${ninja.nome}"></span></p>
                 <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
                 <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
-                <p><strong>Rank:</strong> <span th:text="${ninja.rank}"></span></p>
+                <p><strong>Rank:</strong> <span th:text="${ninja.ranking}"></span></p>
 
                 <p>
                     <strong>Missão:</strong>
-                    <span th:if="${ninja.missoes}">
-                        <span th:text="${ninja.missoes.nome}"></span>
-                        (<span th:text="${ninja.missoes.dificuldade}"></span>)
+                    <span th:if="${ninja.missaoNome != null}">
+                        <span th:text="${ninja.missaoNome}"></span>
+                        (<span th:text="${ninja.missaoDificuldade}"></span>)
                     </span>
-                    <span th:if="${ninja.missoes == null}">
+                    <span th:if="${ninja.missaoNome == null}">
                         Sem missão
                     </span>
                 </p>
