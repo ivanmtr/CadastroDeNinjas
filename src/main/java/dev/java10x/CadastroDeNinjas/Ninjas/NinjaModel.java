@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -38,6 +40,7 @@ public class NinjaModel {
 
     @ManyToOne
     @JoinColumn(name = "missoes_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private MissaoModel missoes;
 
 }
