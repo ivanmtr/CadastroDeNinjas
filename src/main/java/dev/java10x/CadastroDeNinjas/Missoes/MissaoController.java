@@ -16,7 +16,7 @@ public class MissaoController {
         this.missaoService = missaoService;
     }
 
-    // Criar Missao
+
     @PostMapping("/criar")
     public ResponseEntity<String> criarMissao(@RequestBody MissaoDTO missoes) {
         MissaoDTO novaMissao =  missaoService.criarMissao(missoes);
@@ -24,14 +24,14 @@ public class MissaoController {
                 .body("Missao criada com sucesso: " + novaMissao.getNome() + " (ID): " + novaMissao.getId());
     }
 
-    // Listar Missoes
+
     @GetMapping("/listar")
     public ResponseEntity<List<MissaoDTO>> listarMissoes(){
         List<MissaoDTO> missoes =  missaoService.listarMissoes();
         return ResponseEntity.ok(missoes);
     }
 
-    // Listar Missao por ID
+
     @GetMapping("/listar/{id}")
     public ResponseEntity<?> listarMissoes(@PathVariable Long id) {
         MissaoDTO missao = missaoService.listarMissoesPorId(id);
@@ -43,7 +43,7 @@ public class MissaoController {
         }
     }
 
-    // Deletar Missao
+
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarMissao(@PathVariable Long id) {
         if (missaoService.listarMissoesPorId(id) != null){
@@ -55,7 +55,7 @@ public class MissaoController {
         }
     }
 
-    // Atualizar Missao
+
     @PutMapping("/alterar/{id}")
     public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoAtualizada) {
         MissaoDTO missao = missaoService.atualizarMissao(id, missaoAtualizada);

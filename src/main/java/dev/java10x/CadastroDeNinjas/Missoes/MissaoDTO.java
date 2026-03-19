@@ -14,6 +14,6 @@ public class MissaoDTO {
 
     private Long id;
     private String nome;
-    private String dificuldade;
+    private Dificuldade dificuldade;
     private List<NinjaModel> ninja;
 }

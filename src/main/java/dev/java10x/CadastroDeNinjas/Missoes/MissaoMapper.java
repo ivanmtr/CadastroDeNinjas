@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MissaoMapper {
 
-    public MissaoModel map(MissaoDTO missaoDTO) {
+    public MissaoModel toModel(MissaoDTO missaoDTO) {
 
         MissaoModel missaoModel = new MissaoModel();
         missaoModel.setId(missaoDTO.getId());
@@ -16,7 +16,7 @@ public class MissaoMapper {
         return missaoModel;
     }
 
-    public static MissaoDTO map(MissaoModel missaoModel) {
+    public MissaoDTO toDTO(MissaoModel missaoModel) {
         MissaoDTO missaoDTO = new MissaoDTO();
         missaoDTO.setId(missaoModel.getId());
         missaoDTO.setNome(missaoModel.getNome());

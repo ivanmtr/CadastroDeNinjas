@@ -3,5 +3,5 @@ public enum Dificuldade {
     FACIL,
     MEDIA,
     DIFICIL,
-    Extrema
+    EXTREMA
 }

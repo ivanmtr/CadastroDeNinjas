@@ -27,9 +27,10 @@ public class MissaoModel {
     private String nome;
 
     @Column (name = "dificuldade")
-    private String dificuldade;
+    @Enumerated(EnumType.STRING)
+    private Dificuldade dificuldade;
 
-    @OneToMany(mappedBy = "missoes")
+    @OneToMany(mappedBy = "missoes", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<NinjaModel> ninja;
 
