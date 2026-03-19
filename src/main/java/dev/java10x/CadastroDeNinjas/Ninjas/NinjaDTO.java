@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import dev.java10x.CadastroDeNinjas.Missoes.Dificuldade;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,6 @@ public class NinjaDTO {
 
         private Long missaoId;
         private String missaoNome;
-        private String missaoDificuldade;
+        private Dificuldade missaoDificuldade;
 }
 

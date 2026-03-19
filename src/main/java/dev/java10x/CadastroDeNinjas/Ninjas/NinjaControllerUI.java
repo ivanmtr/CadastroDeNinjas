@@ -1,12 +1,10 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import dev.java10x.CadastroDeNinjas.Missoes.Dificuldade;
 import dev.java10x.CadastroDeNinjas.Missoes.MissaoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/ninjas/ui")
@@ -42,7 +40,7 @@ public class NinjaControllerUI {
     }
 
     @PostMapping("/criar")
-    public String criarNinja(NinjaDTO ninjaDTO) {
+    public String criarNinja(@ModelAttribute("ninja") NinjaDTO ninjaDTO) {
         ninjaService.criarNinja(ninjaDTO);
         return "redirect:/ninjas/ui/listar";
     }
@@ -52,7 +50,7 @@ public class NinjaControllerUI {
         model.addAttribute("ninja", ninjaService.listarNinjasPorId(id));
         //List<MissaoDTO> listaDeMissoes = missaoService.listarMissoes();
         model.addAttribute("missoes", missaoService.listarMissoes());
-        model.addAttribute("ranks", Rank.values());
+        model.addAttribute("ranks",Rank.values());
         return "formNinja";
     }
 
@@ -66,5 +64,15 @@ public class NinjaControllerUI {
     public String deletarNinja(@PathVariable Long id) {
         ninjaService.deletarNinjaPorId(id);
         return "redirect:/ninjas/ui/listar";
+    }
+
+    @ModelAttribute("dificuldades")
+    public Dificuldade[] popularDificuldades() {
+        return Dificuldade.values();
+    }
+
+    @ModelAttribute("ranks")
+    public Rank[] getRanks(){
+        return Rank.values();
     }
 }

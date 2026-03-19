@@ -24,7 +24,7 @@ public class NinjaMapper {
         model.setIdade(dto.getIdade());
         model.setImgUrl(dto.getImgUrl());
 
-        // Ranking (Enum)
+        // Rank (Enum)
         if (dto.getRanking() != null) {
             model.setRanking(dto.getRanking());
         }

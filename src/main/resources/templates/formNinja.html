@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<div th:replace="~{_navbar :: menu}"></div>
+
 <div class="container form-container">
 
     <h1 th:text="${ninja.id == null ? 'Criar Ninja' : 'Editar Ninja'}"></h1>
