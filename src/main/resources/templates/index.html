@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ninja Manager - Home</title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}">
+</head>
+<body>
+
+<div th:replace="~{_navbar :: menu}"></div>
+
+<div class="container">
+    <div class="header" style="text-align: center; display: block;">
+        <h1>Painel de Controle Ninja</h1>
+        <p>Bem-vindo ao sistema de gerenciamento da Vila.</p>
+    </div>
+
+    <div class="dashboard-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;">
+
+        <div class="card" style="background: #1a1a2e; padding: 30px; border-radius: 15px; border: 1px solid #30363d; text-align: center;">
+            <h2 style="color: #00aaff;">Ninjas</h2>
+            <p style="font-size: 48px; margin: 10px 0;" th:text="${totalNinjas}">0</p>
+            <p>Ninjas cadastrados no sistema</p>
+            <a th:href="@{/ninjas/ui/listar}" class="btn btn-view" style="display: block; margin-top: 20px;">Gerenciar Ninjas</a>
+        </div>
+
+        <div class="card" style="background: #1a1a2e; padding: 30px; border-radius: 15px; border: 1px solid #30363d; text-align: center;">
+            <h2 style="color: #ffaa00;">Missões</h2>
+            <p style="font-size: 48px; margin: 10px 0;" th:text="${totalMissoes}">0</p>
+            <p>Missões disponíveis para atribuição</p>
+            <a th:href="@{/missoes/ui/listar}" class="btn btn-create" style="display: block; margin-top: 20px;">Gerenciar Missões</a>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+        <a th:href="@{/ninjas/ui/novo}" class="btn btn-create" style="padding: 15px 30px;">+ Cadastrar Novo Ninja</a>
+    </div>
+</div>
+
+</body>
+</html>

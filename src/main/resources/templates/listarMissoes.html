@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Missões</title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}"> </head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Lista de Missões</h1>
+        <a class="btn btn-create" th:href="@{/missoes/ui/novo}">
+            + Nova Missão
+        </a>
+    </div>
+
+    <table class="ninja-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome da Missão</th>
+            <th>Dificuldade</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="missao : ${missoes}">
+            <td th:text="${missao.id}"></td>
+            <td th:text="${missao.nome}"></td>
+            <td>
+                    <span class="rank-badge"
+                          th:text="${missao.dificuldade}"
+                          th:classappend="${missao.dificuldade == 'RANK S' ? 'badge-danger' :
+                                          (missao.dificuldade == 'DIFÍCIL' ? 'badge-warning' : 'badge-info')}">
+                    </span>
+            </td>
+            <td class="actions">
+                <a class="btn btn-view" th:href="@{/missoes/ui/editar/{id}(id=${missao.id})}">
+                    Alterar
+                </a>
+                <a class="btn btn-delete" th:href="@{/missoes/ui/deletar/{id}(id=${missao.id})}"
+                   onclick="return confirm('Tem certeza que deseja excluir esta missão?')">
+                    Deletar
+                </a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(missoes)}">
+            <td colspan="4" style="text-align: center;">Nenhuma missão cadastrada.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-actions">
+        <a th:href="@{/ninjas/ui/listar}" class="btn btn-view">Voltar para Ninjas</a>
+    </div>
+</div>
+
+</body>
+</html>

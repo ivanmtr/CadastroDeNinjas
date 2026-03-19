@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Missão</title>
+    <link rel="stylesheet" th:href="@{/css/ninjas.css}">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1 th:text="${missao.id == null} ? 'Nova Missão' : 'Alterar Missão'">Nova Missão</h1>
+    </div>
+
+    <form th:action="${missao.id == null}
+            ? @{/missoes/ui/criar}
+            : @{/missoes/ui/atualizar/{id}(id=${missao.id})}"
+          th:object="${missao}"
+          method="post"
+          class="ninja-form">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label for="nome">Nome da Missão</label>
+            <input type="text" id="nome" th:field="*{nome}" required placeholder="Ex: Escolta do construtor de pontes">
+        </div>
+
+        <div class="form-group">
+            <label for="dificuldade">Dificuldade</label>
+            <select id="dificuldade" th:field="*{dificuldade}" required>
+                <option value="">Selecione a dificuldade</option>
+                <option value="FÁCIL">Fácil</option>
+                <option value="MÉDIA">Média</option>
+                <option value="DIFÍCIL">Difícil</option>
+                <option value="RANK S">Rank S</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <a th:href="@{/missoes/ui/listar}" class="btn btn-view">Cancelar</a>
+            <button type="submit" class="btn btn-create">Salvar Missão</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

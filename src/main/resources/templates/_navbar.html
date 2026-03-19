@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="menu">
+    <nav style="background-color: #1a1a2e; padding: 15px; border-bottom: 2px solid #00aaff; margin-bottom: 30px;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a th:href="@{/}" style="color: #00aaff; font-size: 24px; font-weight: bold; text-decoration: none;">
+                NINJA MANAGER
+            </a>
+            <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
+                <li><a th:href="@{/}" style="color: white; text-decoration: none;">Home</a></li>
+                <li><a th:href="@{/ninjas/ui/listar}" style="color: white; text-decoration: none;">Ninjas</a></li>
+                <li><a th:href="@{/missoes/ui/listar}" style="color: white; text-decoration: none;">Missões</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

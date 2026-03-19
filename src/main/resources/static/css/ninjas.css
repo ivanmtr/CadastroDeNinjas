@@ -117,6 +117,10 @@ h1 {
     font-style: italic;
 }
 
+.badge-danger { background-color: #ff4d4d; }
+.badge-warning { background-color: #ffaa00; }
+.badge-info { background-color: #00aaff; }
+
 
 /* ======================================================
    AÇÕES & BOTÕES
