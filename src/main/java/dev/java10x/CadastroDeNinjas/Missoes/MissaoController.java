@@ -1,5 +1,8 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissaoController {
 
     private final MissaoService missaoService;
@@ -17,53 +20,58 @@ public class MissaoController {
     }
 
 
-    @PostMapping("/criar")
-    public ResponseEntity<String> criarMissao(@RequestBody MissaoDTO missoes) {
-        MissaoDTO novaMissao =  missaoService.criarMissao(missoes);
+    @PostMapping("")
+    @Operation(summary = "Cria uma nova missão",  description = "Rota cria uma nova missão e insere no banco de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Missão criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro na criação da missão")
+    })
+    public ResponseEntity<MissaoDTO> criarMissao(@RequestBody MissaoDTO dto) {
+        MissaoDTO novaMissao =  missaoService.criarMissao(dto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Missao criada com sucesso: " + novaMissao.getNome() + " (ID): " + novaMissao.getId());
+                .body(novaMissao);
     }
 
 
-    @GetMapping("/listar")
+    @GetMapping("")
     public ResponseEntity<List<MissaoDTO>> listarMissoes(){
         List<MissaoDTO> missoes =  missaoService.listarMissoes();
         return ResponseEntity.ok(missoes);
     }
 
 
-    @GetMapping("/listar/{id}")
-    public ResponseEntity<?> listarMissoes(@PathVariable Long id) {
-        MissaoDTO missao = missaoService.listarMissoesPorId(id);
-        if (missao != null){
-            return ResponseEntity.ok(missao);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Missao com o id: " + id + " nao existe nos nossos registros");
-        }
+    @GetMapping("/{id}")
+    @Operation(summary = "Lista missão por id",  description = "Rota lista missão pelo seu id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Missão encontrada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Missão não encontrada")
+    })
+    public ResponseEntity<MissaoDTO> listarPorId(@PathVariable Long id) {
+        return missaoService.listarMissoesPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletarMissao(@PathVariable Long id) {
-        if (missaoService.listarMissoesPorId(id) != null){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarMissao(@PathVariable Long id) {
+        if (missaoService.listarMissoesPorId(id).isPresent()) {
             missaoService.deletarMissao(id);
-            return ResponseEntity.ok("Missão com id: "+ id +", deletada com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Missão com id: " + id + " não encontrado");
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
 
-    @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoAtualizada) {
-        MissaoDTO missao = missaoService.atualizarMissao(id, missaoAtualizada);
-        if (missao != null){
-            return ResponseEntity.ok(missao);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Missão com o id: " + id + " não existe nos nossos registros");
-        }
+    @PutMapping("/{id}")
+    @Operation(summary = "Altera missão por id", description = "Rota altera dados da missão pelo seu id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Missão alterada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Missão não encontrada")
+    })
+    public ResponseEntity<MissaoDTO> alterar(@PathVariable Long id, @RequestBody MissaoDTO dto) {
+        return missaoService.atualizarMissao(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
