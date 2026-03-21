@@ -51,8 +51,6 @@ public class NinjaService {
     public Optional<NinjaDTO> atualizarNinja(Long id, NinjaDTO ninjaDTO) {
         return ninjaRepository.findById(id)
                 .map(ninjaExistente -> {
-                    // Atualiza os dados básicos usando o mapper ou manualmente
-                    // Dica: Se o mapper for bem configurado, use ninjaMapper.map(ninjaDTO)
                     ninjaExistente.setNome(ninjaDTO.getNome());
                     ninjaExistente.setIdade(ninjaDTO.getIdade());
                     ninjaExistente.setEmail(ninjaDTO.getEmail());

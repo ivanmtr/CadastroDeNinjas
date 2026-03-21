@@ -77,7 +77,7 @@ public class NinjaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarNinjaPorId(@PathVariable Long id) {
-        if (ninjaService.listarNinjasPorId(id) != null) {
+        if (ninjaService.listarNinjasPorId(id).isPresent()) {
             ninjaService.deletarNinjaPorId(id);
             return ResponseEntity.noContent().build();
         } else {
