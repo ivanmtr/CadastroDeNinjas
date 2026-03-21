@@ -42,4 +42,12 @@ Certifique-se de ter o **Docker Desktop** instalado e rodando.
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/ivanmtr/CadastroDeNinjas.git
+git clone https://github.com/ivanmtr/CadastroDeNinjas.git 
+```
+---
+
+## 🎓 Créditos e Agradecimentos
+
+Este projeto foi iniciado como parte do material didático do curso [Batismo Java - Fiasco](https://aluno.java10x.dev/), focado em fundamentos de java e Spring Boot.
+
+As implementações de **Refatoração RESTful**, **Persistência com PostgreSQL via Docker**, **Uso de Optional nos Services** e **Documentação com Swagger** foram evoluções aplicadas por mim para aprofundamento técnico e boas práticas de arquitetura.
