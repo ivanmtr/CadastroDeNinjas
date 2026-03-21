@@ -20,6 +20,7 @@
           method="post"
           class="ninja-form">
 
+
         <input type="hidden" name="id" th:value="${ninja.id}">
 
         <div class="form-group">
@@ -68,6 +69,8 @@
             <a th:href="@{/ninjas/ui/listar}" class="btn btn-view">
                 Cancelar
             </a>
+
+            <input type="hidden" name="_method" value="put" th:if="${ninja.id != null}"/>
 
             <button type="submit" class="btn btn-create">
                 Salvar
