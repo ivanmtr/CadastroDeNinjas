@@ -47,15 +47,15 @@ public class NinjaControllerUI {
 
     @GetMapping("/editar/{id}")
     public String editarNinja(@PathVariable Long id, Model model) {
-        model.addAttribute("ninja", ninjaService.listarNinjasPorId(id));
+        model.addAttribute("ninja", ninjaService.listarNinjasPorId(id).orElse(null));
         //List<MissaoDTO> listaDeMissoes = missaoService.listarMissoes();
         model.addAttribute("missoes", missaoService.listarMissoes());
         model.addAttribute("ranks",Rank.values());
         return "formNinja";
     }
 
-    @PostMapping("/editar/{id}")
-    public String atualizarNinja(@PathVariable Long id, NinjaDTO ninjaDTO) {
+    @PutMapping("/editar/{id}")
+    public String atualizarNinja(@PathVariable Long id, @ModelAttribute NinjaDTO ninjaDTO) {
         ninjaService.atualizarNinja(id, ninjaDTO);
         return "redirect:/ninjas/ui/listar";
     }

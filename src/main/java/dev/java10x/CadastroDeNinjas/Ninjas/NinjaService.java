@@ -6,6 +6,7 @@ import dev.java10x.CadastroDeNinjas.Missoes.MissaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,9 @@ public class NinjaService {
 
 
     public List<NinjaDTO> listarNinjas() {
-        return ninjaRepository.findAll().stream()
+        return ninjaRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(NinjaModel::getId))
                 .map(ninjaMapper::map)
                 .toList();
     }
