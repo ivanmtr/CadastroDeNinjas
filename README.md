@@ -41,5 +41,5 @@ Nesta etapa do projeto, foquei em elevar a qualidade do código através de:
 Certifique-se de ter o **Docker Desktop** instalado e rodando.
 
 1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/ivanmtr/CadastroDeNinjas.git](https://github.com/ivanmtr/CadastroDeNinjas.git)
+```bash
+git clone https://github.com/ivanmtr/CadastroDeNinjas.git
