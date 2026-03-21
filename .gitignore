@@ -39,5 +39,4 @@ target/
 .mvn/
 .idea/
 
-
 .env
