@@ -27,34 +27,34 @@ public class MissaoService {
 
 
     public List<MissaoDTO> listarMissoes() {
-        List<MissaoModel> missoes = missoesRepository.findAll();
         return missoesRepository.findAll()
                 .stream()
-                .sorted(Comparator.comparing(MissaoModel::getDificuldade)) // Ordena pelo Enum
+                .sorted(Comparator.comparing(MissaoModel::getDificuldade))
                 .map(missaoMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
 
-    public MissaoDTO listarMissoesPorId(Long id) {
-        Optional<MissaoModel> missoesPorId = missoesRepository.findById(id);
-        return missoesPorId.map(missaoMapper::toDTO)
-                .orElse(null);
+    public Optional<MissaoDTO> listarMissoesPorId(Long id) {
+        return missoesRepository.findById(id)
+                .map(missaoMapper::toDTO);
     }
 
-    public void deletarMissao(Long id) {
-        missoesRepository.deleteById(id);
-    }
-
-
-    public MissaoDTO atualizarMissao(Long id, MissaoDTO missaoDTO) {
-        Optional<MissaoModel> missaoExistente = missoesRepository.findById(id);
-        if (missaoExistente.isPresent()) {
-            MissaoModel missaoAtualizada = missaoMapper.toModel(missaoDTO);
-            missaoAtualizada.setId(id);
-            MissaoModel missaoSalva = missoesRepository.save(missaoAtualizada);
-            return missaoMapper.toDTO(missaoSalva);
+    public boolean deletarMissao(Long id) {
+        if (missoesRepository.existsById(id)) {
+            missoesRepository.deleteById(id);
+            return true;
         }
-        return null;
+        return false;
+    }
+
+
+    public Optional<MissaoDTO> atualizarMissao(Long id, MissaoDTO missaoDTO) {
+        return missoesRepository.findById(id)
+                .map(missaoExistente -> {
+                    MissaoModel missaoAtualizada = missaoMapper.toModel(missaoDTO);
+                    missaoAtualizada.setId(id);
+                    return missaoMapper.toDTO(missoesRepository.save(missaoAtualizada));
+                });
     }
 }

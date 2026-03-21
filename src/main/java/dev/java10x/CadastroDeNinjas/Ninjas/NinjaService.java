@@ -24,61 +24,55 @@ public class NinjaService {
 
 
     public List<NinjaDTO> listarNinjas() {
-        return ninjaRepository.findAll()
-                .stream()
+        return ninjaRepository.findAll().stream()
                 .map(ninjaMapper::map)
                 .toList();
     }
 
-    public NinjaDTO listarNinjasPorId(Long id) {
+    public Optional<NinjaDTO>  listarNinjasPorId(Long id) {
         return ninjaRepository.findById(id)
-                .map(ninjaMapper::map)
-                .orElse(null);
+                .map(ninjaMapper::map);
     }
 
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
 
-        // Resolver missão pelo ID (se houver)
         if (ninjaDTO.getMissaoId() != null) {
             missaoRepository.findById(ninjaDTO.getMissaoId())
                     .ifPresent(ninja::setMissoes);
-        } else {
-            ninja.setMissoes(null);
         }
 
-        NinjaModel salvo = ninjaRepository.save(ninja);
-        return ninjaMapper.map(salvo);
+        return ninjaMapper.map(ninjaRepository.save(ninja));
     }
 
-    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
-        Optional<NinjaModel> optionalNinja = ninjaRepository.findById(id);
+    public Optional<NinjaDTO> atualizarNinja(Long id, NinjaDTO ninjaDTO) {
+        return ninjaRepository.findById(id)
+                .map(ninjaExistente -> {
+                    // Atualiza os dados básicos usando o mapper ou manualmente
+                    // Dica: Se o mapper for bem configurado, use ninjaMapper.map(ninjaDTO)
+                    ninjaExistente.setNome(ninjaDTO.getNome());
+                    ninjaExistente.setIdade(ninjaDTO.getIdade());
+                    ninjaExistente.setEmail(ninjaDTO.getEmail());
+                    ninjaExistente.setRanking(ninjaDTO.getRanking());
+                    ninjaExistente.setImgUrl(ninjaDTO.getImgUrl());
 
-        if (optionalNinja.isEmpty()) {
-            return null;
-        }
+                    if (ninjaDTO.getMissaoId() != null) {
+                        missaoRepository.findById(ninjaDTO.getMissaoId())
+                                .ifPresent(ninjaExistente::setMissoes);
+                    } else {
+                        ninjaExistente.setMissoes(null);
+                    }
 
-        NinjaModel ninjaExistente = optionalNinja.get();
-
-        ninjaExistente.setNome(ninjaDTO.getNome());
-        ninjaExistente.setIdade(ninjaDTO.getIdade());
-        ninjaExistente.setEmail(ninjaDTO.getEmail());
-        ninjaExistente.setRanking(ninjaDTO.getRanking());
-        ninjaExistente.setImgUrl(ninjaDTO.getImgUrl());
-
-        if (ninjaDTO.getMissaoId() != null) {
-            missaoRepository.findById(ninjaDTO.getMissaoId())
-                    .ifPresent(ninjaExistente::setMissoes);
-        } else {
-            ninjaExistente.setMissoes(null);
-        }
-
-        NinjaModel salvo = ninjaRepository.save(ninjaExistente);
-        return ninjaMapper.map(salvo);
+                    return ninjaMapper.map(ninjaRepository.save(ninjaExistente));
+                });
     }
 
-    public void deletarNinjaPorId(Long id) {
-        ninjaRepository.deleteById(id);
+    public boolean deletarNinjaPorId(Long id) {
+        if (ninjaRepository.existsById(id)) {
+            ninjaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
 
