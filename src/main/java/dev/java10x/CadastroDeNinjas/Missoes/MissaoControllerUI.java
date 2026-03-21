@@ -34,7 +34,7 @@ public class MissaoControllerUI {
 
     @GetMapping("/editar/{id}")
     public String editarMissao(@PathVariable Long id, Model model){
-        MissaoDTO missaoDTO = missaoService.listarMissoesPorId(id);
+        MissaoDTO missaoDTO = missaoService.listarMissoesPorId(id).orElse(null);
         model.addAttribute("missao", missaoDTO);
         return "formMissao";
     }
